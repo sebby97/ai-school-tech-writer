@@ -39,7 +39,7 @@ def call_openai(prompt):
 
     try:
         messages = [
-            {'role': 'system', 'content': 'You are an AI trained to help with updating README files based on commit messages and code changes'},
+            {'role': 'system', 'content': 'You are an AI trained to help with updating useful context to README files based on commit messages and code changes'},
             {'role': 'user', 'content': prompt}
         ]
         response = client.invoke(messages)
