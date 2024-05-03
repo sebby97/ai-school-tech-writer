@@ -1,12 +1,13 @@
 import os
 import base64
 from openai import OpenAI
+from github import ContentFile
 
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers.string import StrOutputParser
 
 
-def format_data_for_openai(diffs, readme_content, commit_messages):
+def format_data_for_openai(diffs, readme_content: ContentFile, commit_messages):
     # Combine the changes into a string with clear delineation.
     changes = '\n'.join([
         f'Filename: {file['filename']}\nDiff: \n{file['patch']}\n'
@@ -17,7 +18,7 @@ def format_data_for_openai(diffs, readme_content, commit_messages):
     commit_messages = '\n'.join(commit_messages)
 
     # Decode the README content
-    readme_content = base64.b64decode(readme_content).decode('utf-8')
+    readme_content = base64.b64decode(readme_content.content).decode('utf-8')
 
     # Construct the prompt with clear instructions for the LLM.
     prompt = (
